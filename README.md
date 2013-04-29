@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 Introduction
 ============
@@ -60,3 +61,7 @@ You will need to install the dependencies for pandoc. For Ubuntu, these are:
 
 
 [presenting-for-ignite]: http://www.speakingaboutpresenting.com/content/fast-ignite-presentation/
+=======
+CSCI3155Paper
+=============
+>>>>>>> f6cb9e620e918347e2c2570e6f11600b60d1cc27
