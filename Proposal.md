@@ -3,7 +3,9 @@ Statically Nested Scope in Python.
 
 Authors:
 
-Chris Fichman, Tony Gagliardi, Alec Martin
+Chris Fichman
+Tony Gagliardi
+Alec Martin
 
 Introduction
 ------------
