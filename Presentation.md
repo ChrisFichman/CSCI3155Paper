@@ -1,2 +1,13 @@
-//Presentation.md
-//Team: Alec Martin, Tony Gagliardi, and Chris Fichman
+# Statically Nested Scoping in Python #
+
+Python Enhancement Proposal 227
+
+Alec Martin
+Tony Gagliardi
+Chris Fichman
+
+# What is Statically Nested Scoping? #
+
+- Let's start with an example:
+
+    
