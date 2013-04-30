@@ -10,9 +10,8 @@ Chris Fichman
 - The "Ballmer Peak":
 	- It really does exist!
 	- Remeber Windows ME?
-	- Jim does!
 
-# What the  is Statically Nested Scoping? #
+# What is Statically Nested Scoping? #
 
 Let's start with an example:
 
@@ -37,7 +36,7 @@ Let's start with an example:
 - Lambdas must use arguments to create bindings in the surrounding namespace.
 - Example on next slide...
 
-# Beach (function) Body Before and After Pics #
+# Beach (function) Body Before Pics #
 
 Before:
 	  def f(a):
@@ -46,6 +45,8 @@ Before:
 	  	def g(b, x, y):
 	  		return b * x * y
 	  	return g(a, x, y)
+
+# After the PEP-tastic Transformation #
 
 After:
 	  def f(a):
@@ -61,13 +62,17 @@ After:
 # Inspiration for PEP 227 #
 
 - Most modern languages use statically nested scoping for variables and functions.
-- Statically nested scopin most associated with the ALGOL family of languages, including:
+- Statically nested scoping most associated with the ALGOL family of languages, including:
 	- FORTRAN
 	- Pascal
 	- Lisp
 	- C / C++
 	- COBOL
+
+# From a Domain-Specific Legacy to a General-Purpose Future #
+
 - As python transitioned from an educational language to a serious production language, users demanded more powerful syntax.
+- General purpose use demands support for more functional style.
 
 # Disadvantages of PEP 227 #
 
@@ -77,7 +82,7 @@ After:
 
 # More on Compatibility Issues #
 
-Sometimes constructs which were legal in 2.0 caused syntax errors in 2.1:
+- Sometimes constructs which were legal in 2.0 caused syntax errors in 2.1:
 
 		y = 1
 		def f():
@@ -89,4 +94,4 @@ Sometimes constructs which were legal in 2.0 caused syntax errors in 2.1:
 - Before PEP 227, the name `y` in the function `g` unambiguously referenced the global `y`.
 - The new compiler does not know which binding of `y` to use.
 
-#  #
+# Technical Details #
