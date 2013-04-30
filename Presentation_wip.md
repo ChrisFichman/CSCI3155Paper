@@ -39,6 +39,7 @@ Let's start with an example:
 # Beach (function) Body Before Pics #
 
 Before:
+
 		def f(a):
 			x = 42 + a
 			y = x - 12
@@ -49,6 +50,7 @@ Before:
 # After the PEP-tastic Transformation #
 
 After:
+
 		def f(a):
 			x = 42 + a
 			y = x - 12
