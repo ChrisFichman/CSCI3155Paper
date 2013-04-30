@@ -2,7 +2,7 @@
 $if(theme)$
 \usetheme{$theme$}
 $endif$
-\usecolortheme{beetle}
+\usecolortheme{dolphin}
 \usefonttheme{serif} 
 \usepackage{amssymb,amsmath,mathpartir,tikz}
 \usetikzlibrary{arrows,automata,shapes,calc}
