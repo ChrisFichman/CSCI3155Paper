@@ -1,6 +1,6 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(handout)$handout,$endif$$if(beamer)$ignorenonframetext,$endif$]{$documentclass$}
 $if(theme)$
-\usetheme{Copenhagen}
+\usetheme{$theme$}
 $endif$
 \usecolortheme{beetle}
 \usefonttheme{serif} 
