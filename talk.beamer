@@ -1,10 +1,9 @@
 \documentclass[$if(fontsize)$$fontsize$,$endif$$if(handout)$handout,$endif$$if(beamer)$ignorenonframetext,$endif$]{$documentclass$}
 $if(theme)$
-\usetheme{$theme$}
+\usetheme{Copenhagen}
 $endif$
-$if(colortheme)$
-\usecolortheme{$colortheme$}
-$endif$
+\usecolortheme{beetle}
+\usefonttheme{serif} 
 \usepackage{amssymb,amsmath,mathpartir,tikz}
 \usetikzlibrary{arrows,automata,shapes,calc}
 \usepackage{ifxetex,ifluatex}
@@ -105,6 +104,7 @@ $endfor$
 $if(toc)$
 \begin{frame}
 \tableofcontents[hideallsubsections]
+\transduration{15}
 \end{frame}
 
 $endif$
