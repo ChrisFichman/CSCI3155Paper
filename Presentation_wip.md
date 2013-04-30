@@ -75,4 +75,18 @@ After:
 	- Solution: the python 2.1+ compiler throws a warning when code is semantically different between 2.0 and 2.1.
 - C extensions to python sometimes required rewriting.
 
+# More on Compatibility Issues #
+
+Sometimes constructs which were legal in 2.0 caused syntax errors in 2.1:
+
+		y = 1
+		def f():
+			exec "y = 'gotcha'"
+		  def g():
+		      return y
+		  ...
+
+- Before PEP 227, the name `y` in the function `g` unambiguously referenced the global `y`.
+- The new compiler does not know which binding of `y` to use.
+
 #  #
