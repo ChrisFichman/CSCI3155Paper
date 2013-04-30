@@ -39,6 +39,7 @@ Let's start with an example:
 # Beach (function) Body Before Pics #
 
 Before:
+
 		def f(a):
 			x = 42 + a
 			y = x - 12
@@ -49,6 +50,7 @@ Before:
 # After the PEP-tastic Transformation #
 
 After:
+
 		def f(a):
 			x = 42 + a
 			y = x - 12
@@ -95,6 +97,7 @@ After:
 - The new compiler does not know which binding of `y` to use.
 
 # Technical Details #
+
 - A code block or region is the is the basic unit of a program.
 - Examples of what can be considered a code block:
 	- A function.
@@ -102,6 +105,7 @@ After:
 	- A module.
 
 # Binding #
+
 - If a name is bound within a block, all uses of the name in that and child code blocks refer to that binding.
 - Binding search order:
 	1. Local
@@ -109,8 +113,10 @@ After:
 	3. Global
 
 # Class Definitions #
+
 - Class definitions follow the same rules for name resolution.
 - Classes can be defined inside functions, and functions inside classes.
 - In either case, the inner block can reference names in the outer block.
 
 # Discussion #
+
