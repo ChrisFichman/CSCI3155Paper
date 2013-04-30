@@ -10,7 +10,7 @@ def main():
     parser.add_argument("source", help="Source markdown file")
     args = parser.parse_args()
     output = os.path.splitext(args.source)[0] + ".pdf"
-    pan_args = ["pandoc", "-f", "markdown", "-V", "theme:PaloAlto"]
+    pan_args = ["pandoc", "-f", "markdown", "-V", "theme:Copenhagen"]
     # Add some args here, for those wanting to make this better for extra credit
     pan_args.extend(["--write", "beamer", "--template", "talk.beamer", "-o", output, args.source])
     print "Executing:", " ".join(pan_args)
