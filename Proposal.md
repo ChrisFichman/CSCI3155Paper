@@ -10,7 +10,7 @@ Alec Martin
 Introduction
 ------------
 
-Specifications of the python programming language before version 2.2 did not allow for statically nested scopes, aka lexical scoping. That is, a function (f) which was defined inside the definition of function (g) could not reference names bound in (g). This limited the utility of nested function declarations, making functional style cumbersome to work with. Python Enhancement Proposal (PEP) 227, created 1 November 2000 by Jeremy Hylton [1][] adds this functionality to the python language. In this paper we will discuss how the community was involved in the design and final implementation of this PEP, as well as demonstrate the uses and implications of this addition to the Python language.
+Specifications of the python programming language before version 2.2 did not allow for statically nested lexical scopes. That is, a function (f) which was defined inside the definition of function (g) could not reference names bound in (g). This limited the utility of nested function declarations, making functional style cumbersome to work with. Python Enhancement Proposal (PEP) 227, created 1 November 2000 by Jeremy Hylton [1][] adds this functionality to the python language. In this paper we will discuss how the community was involved in the design and final implementation of this PEP, as well as demonstrate the uses and implications of this addition to the Python language.
 
 Specification
 --------------
