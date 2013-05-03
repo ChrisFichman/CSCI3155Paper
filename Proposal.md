@@ -10,7 +10,7 @@ Alec Martin
 Introduction
 ------------
 
-Specifications of the python programming language before version 2.2 did not allow for statically nested lexical scopes. That is, a function (f) which was defined inside the definition of function (g) could not reference names bound in (g). This limited the utility of nested function declarations, making functional style cumbersome to work with. Python Enhancement Proposal (PEP) 227, created 1 November 2000 by Jeremy Hylton [1][] adds this functionality to the python language. In this paper we will discuss how the community was involved in the design and final implementation of this PEP, as well as demonstrate the uses and implications of this addition to the Python language.
+Specifications of the python programming language before version 2.2 did not allow for statically nested lexical scopes. That is, a function `f` which was defined inside the definition of function `g` could not reference names bound in `g`. This limited the utility of nested function declarations, making functional style cumbersome to work with. Python Enhancement Proposal (PEP) 227, created 1 November 2000 by Jeremy Hylton [1][] adds this functionality to the python language. In this paper we will discuss how the community was involved in the design and final implementation of this PEP, as well as demonstrate the uses and implications of this addition to the Python language. Statically nested scoping was not originally included in the python language most likely due to the increased complexity of implementing the language with this fucntionality, and the increased computational overhead of a more complex name hierarchy [2][].
 
 Specification
 --------------
@@ -36,12 +36,21 @@ The names `x` and `y` are bound in the scope of `f`. They are available for use 
 
 Discussion
 --------------
-An important thing to note is that for code written in versions 2.0 and earlier, the change in the language specification changed the behavior in certain circumstances. especially when dealing with recursion. The python compiler under the new specification issues a warning 
+An important thing to note is that for code written in versions 2.0 and earlier, the change in the language specification changed the behavior in certain circumstances. The python compiler under the new specification issues a warning when code may behave differently.
 
-The enclosed functions' namespace name resolution rules are similar to other languages, except for three major things.
-One, names in class scope are not accessible (shown in more detail in example 3 below), two, the global statement short-circuits the normal rules, and three,  variables are not declared.
+Here is an example of code in which a variable, in this case `y`, is unambiguously bound in the global namespace in versions of python prior to 2.2:
 
-By making names in class scope not accessible, it prevents weird and inconsistent interactions between class attributes and local variable access. "If a name binding operation occurs in a class definition, it creates an attribute on the resulting class object." Therefore, an attribute reference must be used to access a function nested within a class via self or via the class name. Rule 2 is important because the global statement has the exact same effect as in Python 2.0 and earlier. Rule 3 is important because "if a name binding operation occurs anywhere in a function, then that name is treated as local to the function and all references refer to the local binding." As a consequence, it is not possible to rebind a name defined in an enclosing scope.
+	y = 1
+	def f():
+		exec "y = 'gotcha'"
+	  def g():
+	      return y
+
+Once the specification changed to include statically nested scopes, the binding of `y` is no longer unambiguous, because the exec statement introduces a second value of y. The python community could not agree on a method for dealing with this situation in a consistent way, so the above code will result in a compiler error in versions 2.2 and later.
+
+The enclosed functions' name resolution rules are similar to statically scoped languages, except for three major differences -- first, names in class scope are not accessible (shown in more detail in example 3 below). Second, the global statement bypasses the normal rules. Third,  variables are not declared explicitly.
+
+By making names in class scope not accessible, it prevents unpredictable and inconsistent interactions between class attributes and local variable access. "If a name binding operation occurs in a class definition, it creates an attribute on the resulting class object," wrote Hylton in the proposal. Therefore, an attribute reference must be used to access a function nested within a class via self or via the class name. Rule 2 is important because the global statement has exactly the same effect as in Python 2.0 and earlier. Rule 3 is important because "if a name binding operation occurs anywhere in a function, then that name is treated as local to the function and all references refer to the local binding." As a consequence, it is not possible to rebind a name defined in an enclosing scope.
 
 Tim Peters drew up an example that shows potential failures of nested scopes in the absence of declarations.
 
@@ -56,7 +65,7 @@ Tim Peters drew up an example that shows potential failures of nested scopes in 
             pass
         g()
 
-Here, function g() sees the variable i defined in the for loop by function f(). If g() is called before the loop is executed, a NameError will be raised.
+Here, function `g` sees the variable `i` defined in the for loop by function `f`. If `g` is called before the loop is executed, a NameError will be raised.
 
 
 Further Examples
@@ -99,7 +108,18 @@ Another example can be found when defining classes.
     2
     >>> w._private
  
-Names refer to objects in Python. In this example, the class definition for making a wrapper pulls in "obj" from the declaration found in function "make_wrapper", just like the previous example. Although, this example really illustrates the benefits found within this PEP, especially when it comes to class declarations.   
+Names refer to objects in Python. In this example, the class definition for making a wrapper pulls in "obj" from the declaration found in function "make_wrapper", just like the previous example. Although, this example really illustrates the benefits found within this PEP, especially when it comes to class declarations.
+
+Conclusion
+----------
+The addition of statically nested scoping led to a dramatic improvement in the adoption of python as a production language. Python quickly won the hearts of coders the world over immediately upon its introduction due to its elegance and readability, but lacked features necessary for building complex applications and utilities. Guido van Rossum intended the language to serve as an educational tool, but over the years increasingly powerful features such as those introduced in PEP 227 made it one of the leading general-purpose languages. As the entire programming world began to shift from procedural style to the less error-prone functional style, it became important for languages to support functional constructs. Statically nested scoping is one such construct, and python would not be where it is today without it.
+
 
 ~~~~~~~~~~~
+
+Works Cited:
+------------
+
 [1]: http://www.python.org/dev/peps/pep-0227/
+
+[2]: Personal interview of J. Baker.
