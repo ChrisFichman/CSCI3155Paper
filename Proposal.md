@@ -16,9 +16,27 @@ Specification
 --------------
 In the language definition for versions 2.0 and earlier of Python, exactly three namespaces were defined for resolving names; local, global and built-in. The addition of this particular PEP "allows resolution of unbound local names in enclosing functions' namespaces." This was mainly aimed at addressing two shortcomings found in Python at the time. The first being the limited utility of lambda expressions and nested functions in general. The second being the confusion from new users who came from other languages that supported nested lexical scopes/recursion. Since Python was originally designed to be purely a teaching language, it didn't make much sense for it to be missing attributes that are common in most other languages.
 
+A simple example which demonstrates the concept of statically nested scopes is the following code block:
+
+	def f(a):
+		x = 42 + a
+		y = x - 12
+		def g(b):
+			return b * x * y
+		return g(a)
+
+The names `x` and `y` are bound in the scope of `f`. They are available for use in the scope of `g`, because g is nested within `f`. The primary reason for introducing statically nested scoping was so that names which are bound in an outer block don't have to be passed as parameters to a nested function, as was a common pattern before statically nested scopes were introduced. Here is an example of the same function, but utilizing this old pattern:
+
+	def f(a):
+		x = 42 + a
+		y = x - 12
+		def g(b, x, y):
+			return b * x * y
+		return g(a, x, y)
+
 Discussion
 --------------
-An important thing to note right off the bat is that for code written in versions 2.0 and earlier, this addition may change particular functions' behavior, especially when dealing with recursion. Because of this, a warning will be issued at compile time for any code that may be affected by this.
+An important thing to note is that for code written in versions 2.0 and earlier, the change in the language specification changed the behavior in certain circumstances. especially when dealing with recursion. The python compiler under the new specification issues a warning 
 
 The enclosed functions' namespace name resolution rules are similar to other languages, except for three major things.
 One, names in class scope are not accessible (shown in more detail in example 3 below), two, the global statement short-circuits the normal rules, and three,  variables are not declared.
@@ -49,6 +67,7 @@ The following example is a lambda expression that yields an unnamed expression w
       root = Tk()
       Button(root, text="Click here",
              command=lambda root=root: root.test.configure(text="..."))
+
 Here, any name used in the body of the expression must be explicitly passed as an argument to the expression. This method can get very confusing in large scale implementations, almost to the point where the functions purpose cannot be understood from reading the code. This is exactly what this PEP was designed for, because it essentially implements this approach automatically by using the new enclosing functions' namespace.
 
 The following example should look eerily familiar.
